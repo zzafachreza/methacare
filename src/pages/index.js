@@ -30,7 +30,10 @@ import Kuis from './Kuis';
 import Rekomendasi from './Rekomendasi';
 import RekomendasiDetail from './RekomendasiDetail';
 import Relaksasi from './Relaksasi';
-// new
+import GameGambar1 from './GameGambar1';
+import GameGambar2 from './GameGambar2';
+import GameGambar3 from './GameGambar3';
+import GameGambar4 from './GameGambar4';
 
 
 
@@ -67,6 +70,11 @@ export {
   Kuis,
   Rekomendasi,
   RekomendasiDetail,
-  Relaksasi
+  Relaksasi,
+  GameGambar1,
+  GameGambar2,
+  GameGambar3,
+  GameGambar4
+
 
 };

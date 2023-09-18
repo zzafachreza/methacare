@@ -9,6 +9,7 @@ import { Icon } from 'react-native-elements';
 import CountDown from 'react-native-countdown-component';
 import { FlatList } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 export default function Kuis({ navigation, route }) {
 
     const isFocused = useIsFocused();
@@ -56,9 +57,9 @@ export default function Kuis({ navigation, route }) {
                 })
 
                 setData(res.data);
-                setTimeout(() => {
-                    setOpen(true);
-                }, 200)
+
+                setOpen(true);
+
 
             } else {
                 Alert.alert(MYAPP, 'Soal Belum Ada !');
@@ -71,11 +72,50 @@ export default function Kuis({ navigation, route }) {
     }
     const sendServer = () => {
 
-        let totalNilai = skor.reduce((a, b) => a + b, 0);
+        if (nomor == 19) {
+            let totalNilai = skor.reduce((a, b) => a + b, 0);
+            let nilai = (totalNilai / data.length) * 100;
+            setOpen(false);
+
+            Alert.alert('Terima kasih sudah mengerjakan soal !', `Nilai kamu adalah : ${nilai}`, [
+                {
+                    text: 'ULANGI',
+                    onPress: () => {
+                        setNomor(0);
+                        let TMPPilih = [...pilih];
+                        data.map((i, index) => {
+                            TMPPilih[index] = {
+                                a: false,
+                                b: false,
+                                c: false,
+                                d: false
+                            }
+                        });
+                        setPilih(TMPPilih);
+                        setData([]);
+                        setSoal([]);
+                        setSudah([]);
+                        __getTransaction()
+                    }
+                },
+                {
+                    text: 'KEMBALI',
+                    onPress: () => navigation.goBack()
+                }
+            ]);
+        } else {
+            if (!pilih[nomor].a && !pilih[nomor].b && !pilih[nomor].c && !pilih[nomor].d && !pilih[nomor].e) {
+                sudah[nomor] = 0;
+                setNomor(nomor + 1);
+            } else {
+                sudah[nomor] = 1;
+                setNomor(nomor + 1);
+                console.log(sudah);
+            }
+        }
 
 
-        let nilai = (totalNilai / data.length) * 100;
-        Alert.alert('Terima kasih sudah mengerjakan soal !', `Nilai kamu adalah : ${nilai}`);
+
 
         // const kirim = {
         //     nilai: nilai,
@@ -109,6 +149,14 @@ export default function Kuis({ navigation, route }) {
                 backgroundColor: colors.primary
             }}>
 
+                {!open && <View style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                    <ActivityIndicator size="large" color={colors.white} />
+                </View>}
+
                 {open &&
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={{
@@ -129,13 +177,29 @@ export default function Kuis({ navigation, route }) {
 
                                 <View>
                                     <View style={{}}>
+                                        {/* <CountDown
+                        id={'last' + data[nomor].id.toString()}
+                        until={waktu - 5}
+                        onFinish={() => {
+                            if (user.suara == 1) {
+                                SoundPlayer.playSoundFile('timer', 'mp3')
+                            }
+                        }}
+                        onPress={() => alert('hello')}
+                        timeToShow={['M', 'S']}
+                        digitStyle={{ backgroundColor: colors.white }}
+                        timeLabels={{ m: null, s: null }}
+                        showSeparator
+                        size={0}
+                    /> */}
                                         <Text style={{ flex: 1, fontFamily: fonts.secondary[600], color: colors.primary }}>Sisa Waktu : </Text>
                                         <CountDown
-                                            until={30 * 60}
+                                            id={'last' + data[nomor].id.toString()}
+                                            until={10}
                                             size={15}
                                             onFinish={sendServer}
                                             digitStyle={{ backgroundColor: colors.secondary }}
-                                            digitTxtStyle={{ color: colors.primary }}
+                                            digitTxtStyle={{ color: colors.white }}
                                             timeToShow={['M', 'S']}
                                             timeLabels={{ m: 'Menit', s: 'Detik' }}
                                         />
@@ -363,44 +427,47 @@ export default function Kuis({ navigation, route }) {
                 }
             </View>
 
-            <View style={{
-                padding: 10,
-            }}>
+            {open &&
+                <View style={{
+                    padding: 10,
+                }}>
 
 
 
-                <FlatList data={soal} numColumns={5} renderItem={({ item, index }) => {
-                    return (
-                        <TouchableWithoutFeedback onPress={() => setNomor(index)}>
-                            <View style={{
-                                flex: 1,
-                                padding: 10,
-                                borderRadius: 10,
-                                backgroundColor: sudah[index] == 1 ? colors.primary : colors.border,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                margin: 2,
-                            }}>
-                                <Text style={{
-                                    fontFamily: fonts.secondary[600],
-                                    color: colors.white
-                                }}>{index + 1}</Text>
-                            </View>
+                    <FlatList data={data} numColumns={5} renderItem={({ item, index }) => {
+                        return (
+                            <TouchableWithoutFeedback onPress={() => setNomor(index)}>
+                                <View style={{
+                                    flex: 1,
+                                    padding: 10,
+                                    borderRadius: 10,
+                                    backgroundColor: sudah[index] == 1 ? colors.primary : colors.border,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    margin: 2,
+                                }}>
+                                    <Text style={{
+                                        fontFamily: fonts.secondary[600],
+                                        color: colors.white
+                                    }}>{index + 1}</Text>
+                                </View>
 
-                        </TouchableWithoutFeedback>
-                    )
-                }} />
-
-
+                            </TouchableWithoutFeedback>
+                        )
+                    }} />
 
 
 
-            </View>
+
+
+                </View>}
+
+
             <View style={{
                 flexDirection: 'row',
                 height: 40,
             }}>
-                <View style={{
+                {/* <View style={{
                     flex: 1,
                     padding: 2,
                 }}>
@@ -422,7 +489,7 @@ export default function Kuis({ navigation, route }) {
                             fontSize: 12
                         }}>Soal Sebelumnya</Text>
                     </TouchableOpacity>}
-                </View>
+                </View> */}
 
                 <View style={{
                     flex: 1,
@@ -469,7 +536,39 @@ export default function Kuis({ navigation, route }) {
                     padding: 2,
                     height: 40,
                 }}>
-                    <TouchableOpacity onPress={sendServer} style={{
+                    <TouchableOpacity onPress={() => {
+                        let totalNilai = skor.reduce((a, b) => a + b, 0);
+                        let nilai = (totalNilai / data.length) * 100;
+                        setOpen(false);
+
+                        Alert.alert('Terima kasih sudah mengerjakan soal !', `Nilai kamu adalah : ${nilai}`, [
+                            {
+                                text: 'ULANGI',
+                                onPress: () => {
+                                    setNomor(0);
+                                    let TMPPilih = [...pilih];
+                                    data.map((i, index) => {
+                                        TMPPilih[index] = {
+                                            a: false,
+                                            b: false,
+                                            c: false,
+                                            d: false
+                                        }
+                                    });
+                                    setPilih(TMPPilih);
+                                    setData([]);
+                                    setSoal([]);
+                                    setSudah([]);
+                                    __getTransaction()
+                                }
+                            },
+                            {
+                                text: 'KEMBALI',
+                                onPress: () => navigation.goBack()
+                            }
+                        ]);
+
+                    }} style={{
                         padding: 5,
                         height: 40,
                         flexDirection: 'row',
@@ -484,7 +583,7 @@ export default function Kuis({ navigation, route }) {
                             fontFamily: fonts.secondary[600],
                             color: colors.white,
                             fontSize: 12
-                        }}>Berhenti Mengerjakan</Text>
+                        }}>Selesai Mengerjakan</Text>
 
                     </TouchableOpacity>
                 </View>

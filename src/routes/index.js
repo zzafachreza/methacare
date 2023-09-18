@@ -33,6 +33,10 @@ import {
   Rekomendasi,
   RekomendasiDetail,
   Relaksasi,
+  GameGambar1,
+  GameGambar2,
+  GameGambar3,
+  GameGambar4,
 
 
 
@@ -73,6 +77,11 @@ export default function Router() {
       <Stack.Screen name="Rekomendasi" component={Rekomendasi} options={{ headerShown: false }} />
       <Stack.Screen name="RekomendasiDetail" component={RekomendasiDetail} options={{ headerShown: false }} />
       <Stack.Screen name="Relaksasi" component={Relaksasi} options={{ headerShown: false }} />
+
+      <Stack.Screen name="GameGambar1" component={GameGambar1} options={{ headerShown: false }} />
+      <Stack.Screen name="GameGambar2" component={GameGambar2} options={{ headerShown: false }} />
+      <Stack.Screen name="GameGambar3" component={GameGambar3} options={{ headerShown: false }} />
+      <Stack.Screen name="GameGambar4" component={GameGambar4} options={{ headerShown: false }} />
 
 
 

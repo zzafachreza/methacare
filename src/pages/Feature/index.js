@@ -12,6 +12,34 @@ import 'intl/locale-data/jsonp/en';
 import moment from 'moment';
 import 'moment/locale/id';
 
+const MyMenuFeature = ({ img, label, onPress }) => {
+    return (
+        <TouchableWithoutFeedback onPress={onPress}>
+            <View style={{
+                flex: 1,
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: colors.border,
+                marginHorizontal: 10,
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <Image source={img} style={{
+                    width: windowHeight / 4,
+                    resizeMode: 'contain',
+                    height: windowWidth / 4
+                }} />
+                <Text style={{
+                    fontFamily: fonts.secondary[600],
+                    marginVertical: 5,
+                    color: colors.primary
+                }}>{label}</Text>
+            </View>
+        </TouchableWithoutFeedback>
+    )
+}
+
 export default function Feature({ navigation }) {
 
     const [comp, setComp] = useState({});
@@ -23,33 +51,7 @@ export default function Feature({ navigation }) {
         })
     }, [])
 
-    const MyMenuFeature = ({ img, label, onPress }) => {
-        return (
-            <TouchableWithoutFeedback onPress={onPress}>
-                <View style={{
-                    flex: 1,
-                    padding: 10,
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    borderColor: colors.border,
-                    marginHorizontal: 10,
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <Image source={img} style={{
-                        width: windowHeight / 4,
-                        resizeMode: 'contain',
-                        height: windowWidth / 4
-                    }} />
-                    <Text style={{
-                        fontFamily: fonts.secondary[600],
-                        marginVertical: 5,
-                        color: colors.primary
-                    }}>{label}</Text>
-                </View>
-            </TouchableWithoutFeedback>
-        )
-    }
+
     return (
         <SafeAreaView style={{
             flex: 1,
