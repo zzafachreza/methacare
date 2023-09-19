@@ -14,9 +14,18 @@ import 'moment/locale/id';
 import { MyButton } from '../../components';
 
 export default function GameGambar2({ navigation }) {
+    [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+
+    ]
 
     const [pilih, setPilih] = useState([
-        false, false, false, false, false, false
+        false, false, false, false, false, false, false
     ]);
 
 
@@ -149,6 +158,26 @@ export default function GameGambar2({ navigation }) {
                 </TouchableNativeFeedback>
 
                 <TouchableNativeFeedback onPress={() => {
+                    let TMPPilih = [...pilih];
+                    TMPPilih[6] = true;
+                    setPilih(TMPPilih);
+                }}>
+                    <View style={{
+                        left: 270,
+                        top: 245,
+                        position: 'absolute',
+                        zIndex: 99,
+                        width: 65,
+                        height: 30,
+                        borderRadius: 10,
+                        borderWidth: pilih[6] ? 2 : 0,
+                        borderColor: colors.danger,
+                    }}>
+
+                    </View>
+                </TouchableNativeFeedback>
+
+                <TouchableNativeFeedback onPress={() => {
                     const nilai = pilih.filter(i => i == true).length;
                     const akhir = (nilai / pilih.length) * 100;
                     Alert.alert(MYAPP, 'Nilai Kamu : ' + akhir, [
@@ -156,14 +185,14 @@ export default function GameGambar2({ navigation }) {
                             text: 'ULANGI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false, false, false
                                 ])
                             }
                         }, {
                             text: 'KEMBALI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false, false, false
                                 ]);
                                 navigation.goBack()
                             }

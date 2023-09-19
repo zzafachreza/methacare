@@ -107,7 +107,7 @@ export default function Diary({ navigation }) {
             </View>
 
             <View style={{
-                flex: 1,
+                flex: 4,
                 // justifyContent: 'center',
                 padding: 20,
             }}>
@@ -165,25 +165,32 @@ export default function Diary({ navigation }) {
                     )
                 }} />
             </View>
-            <View style={{
-                padding: 10,
-            }}>
-                <MyInput label="Tuliskan Diary" onChangeText={x => {
-                    setCatatan(x)
-                }} multiline iconname="create" />
-                <MyGap jarak={10} />
-                <MyButton title="Simpan Diary" onPress={() => {
-                    getData('user').then(u => {
-                        axios.post(apiURL + 'catatan_add', {
-                            fid_user: u.id,
-                            catatan: catatan
-                        }).then(res => {
-                            console.log(res.data);
-                            __getTransaction()
-                        })
-                    })
-                }} />
-            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={{
+                    padding: 10,
+                }}>
+                    <MyInput value={catatan} label="Tuliskan Diary" onChangeText={x => {
+                        setCatatan(x)
+                    }} multiline iconname="create" />
+                    <MyGap jarak={10} />
+                    <MyButton title="Simpan Diary" onPress={() => {
+                        if (catatan.length == 0) {
+                            Alert.alert(MYAPP, 'Tulisan tidak boleh kosong !')
+                        } else {
+                            getData('user').then(u => {
+                                axios.post(apiURL + 'catatan_add', {
+                                    fid_user: u.id,
+                                    catatan: catatan
+                                }).then(res => {
+                                    setCatatan('');
+                                    console.log(res.data);
+                                    __getTransaction()
+                                })
+                            })
+                        }
+                    }} />
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }
