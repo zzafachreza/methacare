@@ -14,9 +14,14 @@ import 'moment/locale/id';
 import { MyButton } from '../../components';
 
 export default function GameGambar1({ navigation }) {
-
+    [
+        false, false, false, false, false, false, false,
+    ]
+    [
+        true, true, true, true, true, true, true
+    ]
     const [pilih, setPilih] = useState([
-        false, false, false, false, false
+        false, false, false, false, false, false, false,
     ]);
 
 
@@ -123,6 +128,46 @@ export default function GameGambar1({ navigation }) {
                         height: 30,
                         borderRadius: 10,
                         borderWidth: pilih[4] ? 2 : 0,
+                        borderColor: colors.danger,
+                    }}>
+
+                    </View>
+                </TouchableNativeFeedback>
+
+                <TouchableNativeFeedback onPress={() => {
+                    let TMPPilih = [...pilih];
+                    TMPPilih[5] = true;
+                    setPilih(TMPPilih);
+                }}>
+                    <View style={{
+                        left: 95,
+                        top: 130,
+                        position: 'absolute',
+                        zIndex: 99,
+                        width: 25,
+                        height: 30,
+                        borderRadius: 10,
+                        borderWidth: pilih[5] ? 2 : 0,
+                        borderColor: colors.danger,
+                    }}>
+
+                    </View>
+                </TouchableNativeFeedback>
+
+                <TouchableNativeFeedback onPress={() => {
+                    let TMPPilih = [...pilih];
+                    TMPPilih[6] = true;
+                    setPilih(TMPPilih);
+                }}>
+                    <View style={{
+                        left: 55,
+                        top: 130,
+                        position: 'absolute',
+                        zIndex: 99,
+                        width: 20,
+                        height: 30,
+                        borderRadius: 10,
+                        borderWidth: pilih[6] ? 2 : 0,
                         borderColor: colors.danger,
                     }}>
 
