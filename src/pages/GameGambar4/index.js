@@ -129,20 +129,20 @@ export default function GameGambar4({ navigation }) {
 
                 <TouchableNativeFeedback onPress={() => {
                     const nilai = pilih.filter(i => i == true).length;
-                    const akhir = (nilai / pilih.length) * 100;
+                    const akhir = Math.round((nilai / pilih.length) * 100).toFixed(0);
                     Alert.alert(MYAPP, 'Nilai Kamu : ' + akhir, [
                         {
                             text: 'ULANGI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false
                                 ])
                             }
                         }, {
                             text: 'KEMBALI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false
                                 ]);
                                 navigation.goBack()
                             }

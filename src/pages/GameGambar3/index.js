@@ -14,9 +14,9 @@ import 'moment/locale/id';
 import { MyButton } from '../../components';
 
 export default function GameGambar3({ navigation }) {
-    // [ false, false, false, false]
-    // [true, true, true, true]
-    const [pilih, setPilih] = useState([false, false, false, false]);
+    // [ false, false, false, false,false]
+    // [true, true, true, true,true]
+    const [pilih, setPilih] = useState([false, false, false, false, false]);
 
 
     return (
@@ -28,8 +28,8 @@ export default function GameGambar3({ navigation }) {
         }}>
             <ImageBackground source={require('../../assets/b3.png')} style={{
 
-                width: 350,
-                height: 550,
+                width: 360,
+                height: 520,
                 position: 'relative',
             }}>
                 <TouchableNativeFeedback onPress={() => {
@@ -39,7 +39,7 @@ export default function GameGambar3({ navigation }) {
                 }}>
                     <View style={{
                         left: 130,
-                        top: 220,
+                        top: 210,
                         position: 'absolute',
                         zIndex: 99,
                         width: 60,
@@ -58,7 +58,7 @@ export default function GameGambar3({ navigation }) {
                 }}>
                     <View style={{
                         left: 288,
-                        top: 212,
+                        top: 202,
                         position: 'absolute',
                         zIndex: 99,
                         width: 40,
@@ -76,8 +76,8 @@ export default function GameGambar3({ navigation }) {
                     setPilih(TMPPilih);
                 }}>
                     <View style={{
-                        left: 213,
-                        top: 127,
+                        left: 215,
+                        top: 117,
                         position: 'absolute',
                         zIndex: 99,
                         width: 30,
@@ -96,7 +96,7 @@ export default function GameGambar3({ navigation }) {
                 }}>
                     <View style={{
                         left: 260,
-                        top: 120,
+                        top: 110,
                         position: 'absolute',
                         zIndex: 99,
                         width: 30,
@@ -109,23 +109,43 @@ export default function GameGambar3({ navigation }) {
                     </View>
                 </TouchableNativeFeedback>
 
+                <TouchableNativeFeedback onPress={() => {
+                    let TMPPilih = [...pilih];
+                    TMPPilih[4] = true;
+                    setPilih(TMPPilih);
+                }}>
+                    <View style={{
+                        left: 0,
+                        top: 130,
+                        position: 'absolute',
+                        zIndex: 99,
+                        width: 40,
+                        height: 60,
+                        borderRadius: 10,
+                        borderWidth: pilih[4] ? 2 : 0,
+                        borderColor: colors.danger,
+                    }}>
+
+                    </View>
+                </TouchableNativeFeedback>
+
 
                 <TouchableNativeFeedback onPress={() => {
                     const nilai = pilih.filter(i => i == true).length;
-                    const akhir = (nilai / pilih.length) * 100;
+                    const akhir = Math.round((nilai / pilih.length) * 100).toFixed(0);
                     Alert.alert(MYAPP, 'Nilai Kamu : ' + akhir, [
                         {
                             text: 'ULANGI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false
                                 ])
                             }
                         }, {
                             text: 'KEMBALI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false
                                 ]);
                                 navigation.goBack()
                             }

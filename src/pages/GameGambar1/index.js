@@ -14,14 +14,14 @@ import 'moment/locale/id';
 import { MyButton } from '../../components';
 
 export default function GameGambar1({ navigation }) {
-    [
-        false, false, false, false, false, false, false,
-    ]
-    [
-        true, true, true, true, true, true, true
-    ]
+    // [
+    //     false, false, false, false, false, false, false, false, false
+    // ]
+    // [
+    //     true, true, true, true, true, true, true, true, true
+    // ]
     const [pilih, setPilih] = useState([
-        false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false
     ]);
 
 
@@ -175,21 +175,61 @@ export default function GameGambar1({ navigation }) {
                 </TouchableNativeFeedback>
 
                 <TouchableNativeFeedback onPress={() => {
+                    let TMPPilih = [...pilih];
+                    TMPPilih[7] = true;
+                    setPilih(TMPPilih);
+                }}>
+                    <View style={{
+                        left: 135,
+                        top: 120,
+                        position: 'absolute',
+                        zIndex: 99,
+                        width: 30,
+                        height: 30,
+                        borderRadius: 10,
+                        borderWidth: pilih[7] ? 2 : 0,
+                        borderColor: colors.danger,
+                    }}>
+
+                    </View>
+                </TouchableNativeFeedback>
+
+                <TouchableNativeFeedback onPress={() => {
+                    let TMPPilih = [...pilih];
+                    TMPPilih[8] = true;
+                    setPilih(TMPPilih);
+                }}>
+                    <View style={{
+                        left: 50,
+                        top: 185,
+                        position: 'absolute',
+                        zIndex: 99,
+                        width: 30,
+                        height: 30,
+                        borderRadius: 10,
+                        borderWidth: pilih[8] ? 2 : 0,
+                        borderColor: colors.danger,
+                    }}>
+
+                    </View>
+                </TouchableNativeFeedback>
+
+                <TouchableNativeFeedback onPress={() => {
                     const nilai = pilih.filter(i => i == true).length;
-                    const akhir = (nilai / pilih.length) * 100;
+                    const akhir = Math.round((nilai / pilih.length) * 100).toFixed(0);
                     Alert.alert(MYAPP, 'Nilai Kamu : ' + akhir, [
                         {
                             text: 'ULANGI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false, false, false, false, false
                                 ])
                             }
                         }, {
                             text: 'KEMBALI',
                             onPress: () => {
                                 setPilih([
-                                    false, false, false, false
+                                    false, false, false, false, false, false, false, false, false
                                 ]);
                                 navigation.goBack()
                             }
@@ -211,6 +251,8 @@ export default function GameGambar1({ navigation }) {
                         }}>SELESAI</Text>
                     </View>
                 </TouchableNativeFeedback>
+
+
             </ImageBackground>
 
 
